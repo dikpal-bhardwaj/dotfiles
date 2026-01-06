@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/dikpal/.config/nvim-bak'
+let g:netrw_dirhist_2='/home/dikpal/personal/coding-club/portfolio'
+let g:netrw_dirhist_1='/home/dikpal/.vim'
+let g:netrw_dirhist_0='/home/dikpal/.vim/plugged'
+let g:netrw_dirhist_9='/home/dikpal/.vim'
+let g:netrw_dirhist_8='/home/dikpal/.vim/.fdignore'
+let g:netrw_dirhist_7='/home/dikpal/.vim'
+let g:netrw_dirhist_6='/home'
+let g:netrw_dirhist_5='/home/dikpal'
+let g:netrw_dirhist_4='/home/dikpal/.vim'
