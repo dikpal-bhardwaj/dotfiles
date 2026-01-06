@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+# --- CONFIGURATION ---
+
+# 1. Directories to search DEEPLY (Recursive)
+#    We look inside these for any folder, no matter how deep.
+deep_dirs="$HOME/notes $HOME/personal $HOME/work"
+
+# 2. Directories to search SHALLOWLY (Only top level)
+#    Usually you only want ~/.config/nvim, not ~/.config/nvim/lua/user/...
+shallow_dirs="$HOME/.config"
+
+# --- SEARCH LOGIC ---
+
+# A. Find deep folders, but EXCLUDE junk like .git, node_modules, etc.
+#    The `-prune` flag tells find to stop digging if it hits these names.
+list_deep=$(find $deep_dirs -mindepth 1 -type d \( \
+    -name ".git" \
+    -o -name "node_modules" \
+    -o -name "target" \
+    -o -name "dist" \
+    -o -name "__pycache__" \
+    -o -name ".cache" \
+\) -prune -o -type d -print)
+
+# B. Find shallow folders (Config)
+list_shallow=$(find $shallow_dirs -mindepth 1 -maxdepth 1 -type d)
+
+# C. Combine lists and pipe to FZF
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(printf "%s\n%s" "$list_deep" "$list_shallow" | fzf)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# --- SESSION MANAGEMENT ---
+
+# Create a session name based on the FOLDER name (not the full path)
+# e.g., /home/user/personal/code/python/weather -> "weather"
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+# 1. If tmux isn't running, start new server attached to session
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s $selected_name -c $selected
+    exit 0
+fi
+
+# 2. Create session if missing
+if ! tmux has-session -t=$selected_name 2> /dev/null; then
+    tmux new-session -ds $selected_name -c $selected
+fi
+
+# 3. Switch or Attach
+if [[ -z $TMUX ]]; then
+    tmux attach -t $selected_name
+else
+    tmux switch-client -t $selected_name
+fi

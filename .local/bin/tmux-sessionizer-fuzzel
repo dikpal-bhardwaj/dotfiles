@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+# --- CONFIGURATION ---
+# 1. Your Terminal Emulator (kitty, alacritty, foot, wezterm)
+TERMINAL="foot"
+
+# 2. Your Menu Tool (fuzzel for Wayland/Niri, dmenu/rofi for X11)
+#    -d: dmenu mode (read from stdin)
+#    -p: prompt text
+#    --width: window width
+MENU_CMD="fuzzel -d -p ' Session: ' --width 50"
+
+# 3. Search Paths
+deep_dirs="$HOME/notes $HOME/personal $HOME/work"
+shallow_dirs="$HOME/.config $HOME/.local"
+
+# --- SEARCH LOGIC ---
+
+# Search deep directories (excluding junk)
+list_deep=$(find $deep_dirs -mindepth 1 -type d \( \
+    -name ".git" \
+    -o -name "node_modules" \
+    -o -name "target" \
+    -o -name "dist" \
+    -o -name "__pycache__" \
+    -o -name ".cache" \
+\) -prune -o -type d -print)
+
+# Search shallow directories (Config)
+list_shallow=$(find $shallow_dirs -mindepth 1 -maxdepth 1 -type d)
+
+# Combine lists
+combined_list=$(printf "%s\n%s" "$list_deep" "$list_shallow")
+
+# --- SELECTION ---
+
+# Pipe to the menu command
+selected=$(echo "$combined_list" | eval "$MENU_CMD")
+
+# Exit if user cancelled (pressed Esc)
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# --- SESSION MANAGEMENT ---
+
+# Create clean session name (replace dots with underscores)
+selected_name=$(basename "$selected" | tr . _)
+
+# Check if session exists
+if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    # Create a new detached session in that directory
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+# --- LAUNCH TERMINAL ---
+
+# Launch a new terminal window attached to the session
+# setsid detaches the process so closing the menu doesn't kill the terminal
+setsid "$TERMINAL" -e tmux attach -t "$selected_name" &
+```
+
+### 2. Make it Executable
+
+Run this command in your terminal:
+
+```bash
+chmod +x ~/.local/bin/tmux-sessionizer-dmenu
+```
+
+### 3. Update Niri Config
+
+Open your `~/.config/niri/config.kdl` and update the binding.
+
+**Important:** Remember to replace `YOUR_USERNAME` with your actual linux username (e.g., `dikpal`), as Niri does not expand `~`.
+
+```kdl
+binds {
+    // ... other binds ...
+
+    // Use the new separate script
+    Mod+Shift+F { spawn "/home/YOUR_USERNAME/.local/bin/tmux-sessionizer-dmenu"; }
+}

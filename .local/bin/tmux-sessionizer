@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# --- CONFIGURATION ---
+# Your terminal emulator (e.g., kitty, alacritty, foot)
+TERMINAL="foot" 
+
+# Directories
+deep_dirs="$HOME/notes $HOME/personal $HOME/work"
+shallow_dirs="$HOME/.config"
+
+# --- SEARCH LOGIC ---
+list_deep=$(find $deep_dirs -mindepth 1 -type d \( -name ".git" -o -name "node_modules" -o -name "__pycache__" \) -prune -o -type d -print)
+list_shallow=$(find $shallow_dirs -mindepth 1 -maxdepth 1 -type d)
+combined_list=$(printf "%s\n%s" "$list_deep" "$list_shallow")
+
+# --- SELECTION MODE ---
+
+if [[ "$1" == "--dmenu" ]]; then
+    # GUI MODE: Use Fuzzel
+    # -d means dmenu mode (read from stdin), -p is prompt
+    selected=$(echo "$combined_list" | fuzzel -d -p " Session: " --width 50)
+else
+    # TERMINAL MODE: Use FZF
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$(echo "$combined_list" | fzf)
+    fi
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# --- SESSION HANDLING ---
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+# Ensure session exists
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    # If tmux is totally dead, we need to handle the start differently below
+    tmux new-session -ds $selected_name -c $selected
+elif ! tmux has-session -t=$selected_name 2> /dev/null; then
+    # Create detached session
+    tmux new-session -ds $selected_name -c $selected
+fi
+
+# --- SWITCHING / LAUNCHING ---
+
+if [[ "$1" == "--dmenu" ]]; then
+    # If triggered from Niri (GUI), spawn a NEW terminal window attached to the session
+    setsid "$TERMINAL" -e tmux attach -t $selected_name &
+else
+    # If triggered from Terminal/Tmux
+    if [[ -z $TMUX ]]; then
+        tmux attach -t $selected_name
+    else
+        tmux switch-client -t $selected_name
+    fi
+fi
