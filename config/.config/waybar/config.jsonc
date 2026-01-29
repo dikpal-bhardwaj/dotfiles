@@ -1,0 +1,141 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 38,
+    "margin-top": 5,
+    "margin-left": 5,
+    "margin-right": 5,
+    "margin-bottom": 0,
+    "spacing": 5,
+
+    // ── Layout ───────────────────────────────────────────────────────────
+    "modules-left": [
+        "clock",
+        "custom/power",
+        "tray",
+				"custom/weather"
+    ],
+
+    "modules-center": [
+        "niri/workspaces",
+        "hyprland/workspaces",
+				"power-profiles-daemon"
+    ],
+
+    "modules-right": [
+				"disk",
+        "cpu",
+        "memory",
+        "backlight",
+        "pulseaudio",
+        "battery"
+    ],
+
+    // ── Left Modules ─────────────────────────────────────────────────────
+    "clock": {
+        "format": "[   {:%I:%M %p} ]",
+        "format-alt": "[   {:%a, %d %b %Y} ]",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+
+    "custom/power": {
+        "format": "[ 󰤆 ]",
+        "tooltip": false,
+        "on-click": "~/.config/rofi/rofi-power.sh"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "custom/weather": {
+        "format": "[ {} ]",
+        "interval": 600,
+        "exec": "python3 ~/.local/bin/weather.py",
+        "return-type": "json",
+        "on-click": "gnome-weather" // Optional: open weather app on click
+    },
+
+    // ── Center Modules ───────────────────────────────────────────────────
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+
+		"hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+
+		"power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power Profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+
+    // ── Right Modules ────────────────────────────────────────────────────
+		"disk": {
+        "interval": 30,
+        "format": " {free}",
+        "path": "/",
+        "tooltip": true,
+        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2
+    },
+
+    "memory": {
+        "format": " {}%",
+        "interval": 2
+    },
+
+    "backlight": {
+        // "device": "intel_backlight", // Uncomment if needed
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞","󰃟","󰃠"],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        "format-icons": {
+            "default": ["", ""]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰢜 {capacity}%",
+        "format-plugged": "󰂇 {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]
+    }
+}

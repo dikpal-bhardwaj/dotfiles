@@ -1,0 +1,25 @@
+## Global Settings
+font=CaskaydiaCove Nerd Font Propo 10
+width=300
+height=150
+margin=10
+padding=15
+border-size=2
+border-radius=8
+default-timeout=5000
+anchor=top-right
+
+## Matugen Colors
+background-color={{colors.background.default.hex}}
+text-color={{colors.on_background.default.hex}}
+border-color={{colors.primary.default.hex}}
+progress-color={{colors.primary.default.hex}}
+
+[urgency=low]
+border-color={{colors.outline.default.hex}}
+default-timeout=2000
+
+[urgency=high]
+border-color={{colors.error.default.hex}}
+text-color={{colors.on_error.default.hex}}
+default-timeout=0

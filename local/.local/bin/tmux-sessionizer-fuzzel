@@ -2,7 +2,7 @@
 
 # --- CONFIGURATION ---
 # 1. Your Terminal Emulator (kitty, alacritty, foot, wezterm)
-TERMINAL="foot"
+TERMINAL="kitty"
 
 # 2. Your Menu Tool (fuzzel for Wayland/Niri, dmenu/rofi for X11)
 #    -d: dmenu mode (read from stdin)
@@ -11,7 +11,7 @@ TERMINAL="foot"
 MENU_CMD="fuzzel -d -p ' Session: ' --width 50"
 
 # 3. Search Paths
-deep_dirs="$HOME/notes $HOME/personal $HOME/work"
+deep_dirs="$HOME/notes $HOME/personal $HOME/work $HOME/dotfiles"
 shallow_dirs="$HOME/.config $HOME/.local"
 
 # --- SEARCH LOGIC ---

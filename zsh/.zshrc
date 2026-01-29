@@ -94,6 +94,8 @@ alias dwmstart="startx"
 alias hyprstart="./start_hyprland.sh"
 alias spotify="spotify_player"
 alias v="nvim"
+# alias nvidia-smi="watch -n 1 nvidia-smi"
+alias fetch="fastfetch"
 
 # ---------------------
 # Utility Functions
@@ -186,3 +188,7 @@ export EDITOR=nvim
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export PATH="$HOME/.cargo/bin:$PATH"

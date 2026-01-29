@@ -19,5 +19,5 @@ white   = "#a9b1d6"
 [terminal]
 
 [terminal.shell]
-program = "/bin/bash"
+program = "/bin/zsh"
 args = ["--login"]

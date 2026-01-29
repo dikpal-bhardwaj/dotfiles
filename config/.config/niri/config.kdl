@@ -33,19 +33,17 @@ input {
 }
 
 cursor {
-    xcursor-theme "Bibata-Modern-Ice"
-    xcursor-size 20
+    xcursor-theme "breeze_cursors"
+    xcursor-size 24
 }
 
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// The built-in laptop monitor is usually called "eDP-1".
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
 output "eDP-1" {
-    mode "1366x768@60"
+    mode "1920x1080@144"
+    scale 1.0
     position x=0 y=0
+    
+    // Enables Adaptive Sync / FreeSync
+    // variable-refresh-rate
 }
 
 layout {
@@ -155,19 +153,20 @@ binds {
 
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Shift+E hotkey-overlay-title="Open a File Manager: nautilus" { spawn "nautilus"; }
     Mod+A hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+B hotkey-overlay-title="Open a Browser: Zen" { spawn "zen-browser"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: Hyprlock" { spawn "hyprlock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: Swaylock" { spawn "swaylock"; }
 
     // --- Reload Waybar ---
     Mod+Shift+B { spawn-sh "pkill waybar && exec waybar &"; }
 
 		// Load powermenu
-		Mod+Escape { spawn-sh "~/.config/rofi/powermenu/type-2/powermenu.sh"; }
+		Mod+Escape { spawn-sh "~/.config/rofi/rofi-power.sh"; }
 
     // Select Wallpaper
-    Mod+Shift+W { spawn-sh "~/.config/rofi/wallpaper-launcher.sh"; }
+    Mod+Shift+W { spawn-sh "~/.local/bin/wallpaper-setter.py"; }
 
     // Run tmux-sessionizer in GUI mode using Fuzzel
     Mod+X { spawn-sh "~/.local/bin/tmux-sessionizer-fuzzel"; }
@@ -184,7 +183,7 @@ binds {
     XF86AudioNext allow-when-locked=true { spawn-sh "playerctl next"; }
     XF86AudioStop allow-when-locked=true { spawn-sh "playerctl stop"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
