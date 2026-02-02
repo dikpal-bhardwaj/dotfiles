@@ -1,0 +1,39 @@
+
+@import "~/.config/rofi/colors.rasi"
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+}
+
+window {
+    width: 800px;
+    height: 500px;
+    border: 2px;
+    border-color: @outline;
+    background-color: @surface;
+}
+
+listview {
+    columns: 3;
+    lines: 3;
+    cycle: true;
+    dynamic: true;
+    layout: vertical;
+    flow: horizontal;
+}
+
+element {
+    orientation: vertical;
+    padding: 10px;
+}
+
+element-icon {
+    size: 150px; /* This creates the large preview */
+    horizontal-align: 0.5;
+}
+
+element-text {
+    horizontal-align: 0.5;
+}

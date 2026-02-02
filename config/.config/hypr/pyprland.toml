@@ -1,0 +1,56 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+command = "alacritty --class scratch-term"
+class = "scratch-term"
+animation = "fromTop"
+size = "60% 60%"
+margin = 150
+unfocus = "hide"
+lazy = true
+
+[scratchpads.htop]
+command = "alacritty --class scratch-htop -e htop"
+class = "scratch-htop"
+animation = "fromBottom"
+size = "60% 60%"
+margin = 150
+unfocus = "hide"
+lazy = true
+
+# [scratchpads.btop]
+# command = "alacritty --class scratch-btop -e btop"
+# class = "scratch-btop"
+# animation = "fromBottom"
+# size = "60% 60%"
+# margin = 150
+# unfocus = "hide"
+# lazy = true
+
+[scratchpads.yazi]
+command = "alacritty --class scratch-yazi -e yazi"
+class = "scratch-yazi"
+animation = "fromBottom"
+size = "60% 60%"
+margin = 150
+unfocus = "hide"
+lazy = true
+
+[scratchpads.nmtui]
+command = "alacritty --class scratch-nmtui -e nmtui"
+class = "scratch-nmtui"
+animation = "fromTop"
+size = "40% 50%"
+margin = 200
+unfocus = "hide"
+lazy = true
+
+[scratchpads.cmus]
+command = "alacritty --class scratch-cmus -e cmus"
+class = "scratch-cmus"
+animation = "fromTop"
+size = "40% 50%"
+margin = 200
+unfocus = "hide"
+lazy = true

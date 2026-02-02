@@ -6,7 +6,7 @@ show-failed-attempts
 daemonize
 
 # ── Image & Effect ───────────────────────────────────────────────────
-image=/home/dikpal/Pictures/wallpapers/601048.jpg
+image=/home/dikpal/Pictures/wallpapers/wallhaven-yq56d7.jpg
 scaling=fill
 
 # Blur: 7x5 is a standard heavy blur. 
@@ -35,32 +35,32 @@ indicator-thickness=15
 # ── Colors ───────────────────────────────────────────────────────────
 
 # Ring (The circle border)
-ring-color=83d5c4
-ring-clear-color=b1ccc5
-ring-ver-color=abcae4
+ring-color=90cef4
+ring-clear-color=b5c9d7
+ring-ver-color=cac1e9
 ring-wrong-color=ffb4ab
 
 # Inside (The circle background)
 # We use 'surface' color but with 'cc' (80% opacity) so it isn't solid blocky
-inside-color=0e1513cc
-inside-clear-color=1b211fcc
-inside-ver-color=1b211fcc
+inside-color=0f1417cc
+inside-clear-color=1c2023cc
+inside-ver-color=1c2023cc
 inside-wrong-color=93000acc
 
 # Line (The separator between ring and inside)
-line-color=0e1513
-line-clear-color=0e1513
-line-ver-color=0e1513
+line-color=0f1417
+line-clear-color=0f1417
+line-ver-color=0f1417
 line-wrong-color=ffb4ab
 
 # Text (Clock and Status)
-text-color=dee4e1
-text-clear-color=dee4e1
-text-ver-color=1c3530
+text-color=dfe3e7
+text-clear-color=dfe3e7
+text-ver-color=20333e
 text-wrong-color=690005
-text-caps-lock-color=abcae4
+text-caps-lock-color=cac1e9
 
 # Interactions
-key-hl-color=abcae4
+key-hl-color=cac1e9
 bs-hl-color=ffb4ab
-separator-color=83d5c4
+separator-color=90cef4

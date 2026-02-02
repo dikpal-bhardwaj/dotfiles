@@ -1,0 +1,73 @@
+@import "~/.config/rofi/colors.rasi"
+
+* {
+    background-color: transparent;
+    text-color:       @on-surface;
+}
+
+window {
+    background-color: @surface;
+    border:           2px;
+    border-color:     @primary;
+    border-radius:    12px;
+    width:            60%;
+    height:           55%;
+    padding:          20px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 15px;
+}
+
+inputbar {
+    background-color: @surface-container;
+    padding: 12px;
+    border-radius: 8px;
+    children: [ prompt, entry ];
+    margin: 0 0 10px 0;
+}
+
+prompt {
+    text-color: @primary;
+    padding: 0 10px 0 0;
+}
+
+entry {
+    placeholder: "Search Wallpaper...";
+    placeholder-color: @outline;
+}
+
+listview {
+    columns: 4;
+    lines:   2;
+    cycle:   false;
+    dynamic: true;
+    layout:  vertical;
+    flow:    horizontal;
+    spacing: 15px;
+}
+
+element {
+    orientation: vertical;
+    padding:     15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+element selected {
+    background-color: @primary-container;
+    border: 1px;
+    border-color: @primary;
+}
+
+element-icon {
+    size: 150px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    cursor: inherit;
+}
+
+element-text {
+    enabled: false;
+}

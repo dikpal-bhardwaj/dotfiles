@@ -106,7 +106,7 @@
     },
 
     "backlight": {
-        // "device": "intel_backlight", // Uncomment if needed
+        "device": "intel_backlight", // Uncomment if needed
         "format": "{icon} {percent}%",
         "format-icons": ["󰃞","󰃟","󰃠"],
         "on-scroll-up": "brightnessctl set +5%",

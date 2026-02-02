@@ -189,6 +189,6 @@ export EDITOR=nvim
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export PATH="$HOME/.cargo/bin:$PATH"

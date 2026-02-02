@@ -1,0 +1,118 @@
+@import "~/.config/rofi/colors.rasi"
+
+* {
+  /* --- Semantic Color Mapping --- */
+  /* Window base */
+  background:                  @surface;
+  
+  /* Normal Text */
+  normal-foreground:           @on-surface;
+  
+  /* Selected Item (Focused) */
+  selected-normal-background:  @primary-container;
+  selected-normal-foreground:  @on-primary-container;
+
+  /* Active Item (e.g. marked/running) */
+  active-background:           @surface-container-high;
+  active-foreground:           @on-surface;
+  
+  /* Selected Active Item */
+  selected-active-background:  @secondary-container;
+  selected-active-foreground:  @on-secondary-container;
+
+  /* Borders / Separators */
+  border-color:                @outline;
+  
+  /* --- General Settings --- */
+  font: "CaskaydiaCove Nerd Font Propo 11";
+  border-radius: 6px;
+  spacing: 4;
+  
+  /* Reset global background/text to avoid inheritance issues */
+  background-color: transparent;
+  text-color: @normal-foreground;
+}
+
+#window {
+  background-color: @background;
+  border: 2px; /* Added border width so the color shows */
+  border-color: @border-color;
+  padding: 2ch;
+}
+
+#mainbox {
+  padding: 0;
+  children: [ inputbar, listview ];
+}
+
+#element {
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+#element-text {
+  background-color: transparent;
+  text-color: inherit;
+  highlight: @primary; /* Make matched text pop with primary color */
+}
+
+#element.normal.normal {
+  background-color: transparent;
+  text-color: @normal-foreground;
+}
+
+#element.selected.normal {
+  background-color: @selected-normal-background;
+  text-color: @selected-normal-foreground;
+}
+
+#element.selected.active {
+  background-color: @selected-active-background;
+  text-color: @selected-active-foreground;
+}
+
+#element.normal.active {
+  background-color: @active-background;
+  text-color: @active-foreground;
+}
+
+#inputbar {
+  children: [ prompt, entry ];
+  margin: 0px 0px 10px 0px; /* Spacing between input and list */
+}
+
+#entry {
+  text-color: @on-surface-variant;
+  placeholder: "Search...";
+  placeholder-color: @outline;
+  padding: 6px;
+  border-radius: 4px;
+  background-color: @surface-container-high; /* Distinct background for input */
+}
+
+#prompt {
+  text-color: @primary;
+  background-color: @surface-container;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin: 0px 6px 0px 0px;
+}
+
+#textbox {
+  text-color: @normal-foreground;
+}
+
+#scrollbar {
+  width: 4px;
+  handle-width: 4px;
+  handle-color: @outline;
+  padding: 0;
+  background-color: @surface-container-highest;
+  border-radius: 4px;
+}
+
+#sidebar {
+  border: 0;
+}

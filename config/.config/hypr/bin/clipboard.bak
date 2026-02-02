@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# This script will output raw data in a format so rofi can preview image
+
+tmp_dir="/tmp/cliphist_preview" # Changed directory name to avoid potential conflicts
+rm -rf "$tmp_dir"
+
+# If an argument is provided, it's the cliphist entry ID to decode
+if [[ -n "$1" ]]; then
+    cliphist decode <<<"$1" | wl-copy
+    exit 0 # Exit successfully after decoding
+fi
+
+mkdir -p "$tmp_dir"
+
+# Use a more robust approach with while read loop to process cliphist list
+# This avoids issues with gawk's multiline string and escaping
+cliphist list | while IFS= read -r line; do
+    # Skip lines that look like HTML (often from web pages)
+    if [[ "$line" =~ ^[0-9]+\s\<meta\ http-equiv= ]]; then
+        echo "$line" # Keep the line in Rofi, but no icon
+        continue
+    fi
+
+    # Check for binary image entries
+    # The pattern matches: ID [binary]... (file_extension)
+    if [[ "$line" =~ ^([0-9]+)\s(\[\[\ )?binary.*(jpg|jpeg|png|bmp)$ ]]; then
+        id="${BASH_REMATCH[1]}"
+        ext="${BASH_REMATCH[3]}"
+
+        # Decode the image to a temporary file
+        cliphist decode <<<"$id" >"$tmp_dir/$id.$ext"
+
+        # Output for Rofi: original line + icon hint
+        echo -e "$line\0icon\x1f$tmp_dir/$id.$ext"
+    else
+        # For non-image text entries, just print the line as is
+        echo "$line"
+    fi
+done
+
+exit 0 # Ensure script exits successfully

@@ -33,7 +33,7 @@ input {
 }
 
 cursor {
-    xcursor-theme "breeze_cursors"
+    xcursor-theme "Bibata-Modern-Ice"
     xcursor-size 24
 }
 
@@ -114,6 +114,8 @@ spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite"
+spawn-at-startup "nm-applet" "--indicator"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
